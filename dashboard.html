@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SVG</title>
+    <style>
+        svg{
+            border: 1px solid black;
+        }
+        /* polyline {
+            stroke: #333;
+            stroke-width: 10px;
+            fill: orangered;
+        }
+        path {
+            stroke: red;
+            stroke-width: 10px;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 500px;
+            stroke-dashoffset: 500px;
+            animation: dash 1s linear infinite alternate;
+        }
+        @keyframes dash {
+            0%{
+                stroke-dashoffset: 500px;
+            }
+            100%{
+                stroke-dashoffset: 0px;
+            }
+        } */
+
+
+        input {
+            position: absolute;
+            top:520px;
+            left: 50px;
+            width: 400px;
+            height: 30px;
+        }
+        #one {
+            stroke: #aaa;
+            fill: none;
+            stroke-width: 15;
+            stroke-linecap: round;
+        }
+        #two {
+            stroke: red;
+            fill:none;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-dasharray: 1000px;
+            stroke-dashoffset: 1000px;
+        }
+    .active {
+        transition: all 1s linear;        
+    }
+    </style>
+</head>
+<body>
+    <!-- <svg width="500"height="500"> -->
+        <!-- <line x1="100" y1="100" x2="100" y2="200"></line> -->
+        <!-- <rect x='50' y='50' width='200' height='100' rx='10'></rect> -->
+        <!-- <polyline points="50 50,50 200, 100 200"></polyline> -->
+        <!-- <path d='M 100 100 l 0 200'></path> -->
+        <!-- <path d='M 100 100 V200 H200 z'></path> -->
+        <!-- <path d='M 100 100 A 100 100 0 1 0 200 100'></path> -->
+        <!-- <path d='M 100 100 Q 150 50 200 200 '></path> -->
+    <!-- </svg> -->
+    <!-- <svg width='500' height='500'>
+        <path d='M 0 200 L 500 200'></path>
+    </svg> -->
+
+    <!-- 仪表盘样式 -->
+    <svg width='500' height='500'>
+        <path id="one" d='M 150 400 A 180 180 0 1 1 350 400'></path>
+        <path id="two" d='M 150 400 A 180 180 0 1 1 350 400'></path>            
+    </svg>
+    <input type="text" placeholder="请输入 0 ~ 100 的数字">  
+    
+    <script>
+        var oPath2 = document.getElementById('two'),
+            oInput = document.getElementsByTagName('input')[0],
+            len = oPath2.getTotalLength();
+
+        oInput.onblur = function () {
+            var val = oInput.value;
+            if(val > 0 & val <= 100) {
+                console.log(val);
+                oPath2.setAttribute('class','active');            
+                var order = 1000 - len * val/100;
+                oPath2.style.strokeDashoffset = order + 'px';
+            }else{
+                alert('请输入 0 ~ 100 的数字');
+            }
+        }
+        oInput.onfocus = function () {
+            oPath2.setAttribute('class','');         
+            oPath2.style.strokeDashoffset = '1000px';            
+        }
+    </script>
+
+
+
+
+
+</body>
+</html>
